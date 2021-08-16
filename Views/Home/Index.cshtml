@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="placeholders">
+    <div class="row d-flex justify-content-start">
+        <div class="col-md-2 mb-3 placeholder">
+            <h3>Spis filmów:</h3>
+        </div>
+    </div>
+</div>
+<div class="row" style="margin-top:20px;">
+    <div class="col-12">
+        @(Html.Kendo().Grid<SimpleTelerikApp.Models.Films>()
+            .Name("grid")
+            .Columns(columns =>
+            {
+                columns.Bound(p => p.ID).Filterable(false);
+                columns.Bound(p => p.Title);
+                columns.Bound(p => p.Description);
+                columns.Bound(p => p.Director);
+                columns.Bound(p => p.ReleaseDate).Format("{0:yyyy-MM-dd}");
+                columns.Command(command =>
+                {
+                    command.Edit().UpdateText("Zapisz");
+                    command.Destroy();
+                });
+            })
+            .Pageable()
+            .Editable(editable => editable.Mode(GridEditMode.InLine))
+            .Sortable()
+            .Scrollable()
+            .Filterable()
+            .HtmlAttributes(new { style = "height:500px;" })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .PageSize(10)
+                .ServerOperation(true)
+                .Batch(true)
+                .Model(model =>
+                {
+                    model.Id(film => film.ID);
+                    model.Field(film => film.ID).Editable(false);
+                })
+                .Read(read => read.Action("Index", "Film"))
+                .Update(update => update.Action("Update", "Film"))
+                .Destroy(destroy => destroy.Action("Delete", "Film"))
+                .Create(create => create.Action("Create", "Film"))
+            )
+        )
+    </div>
+</div>
