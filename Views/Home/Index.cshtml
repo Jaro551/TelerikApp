@@ -26,6 +26,7 @@
                     command.Destroy();
                 });
             })
+            .ToolBar(toolBar => toolBar.Create())
             .Pageable()
             .Editable(editable => editable.Mode(GridEditMode.InLine))
             .Sortable()
@@ -42,11 +43,32 @@
                     model.Id(film => film.ID);
                     model.Field(film => film.ID).Editable(false);
                 })
-                .Read(read => read.Action("Index", "Film"))
-                .Update(update => update.Action("Update", "Film"))
-                .Destroy(destroy => destroy.Action("Delete", "Film"))
-                .Create(create => create.Action("Create", "Film"))
+                .Create(create => create.Action("Films_Create", "Film"))
+                .Read(read => read.Action("Films_Read", "Film"))
+                .Update(update => update.Action("Films_Update", "Film"))
+                .Destroy(destroy => destroy.Action("Films_Destroy", "Film")) 
             )
         )
     </div>
 </div>
+
+<script>
+    function grid_error(e) {
+        if (e.errors) {
+            var message = "There are some errors:\n";
+            // Create a message containing all errors.
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            // Display the message.
+            alert(message);
+            // Cancel the changes.
+            var grid = $("#grid").data("kendoGrid");
+            grid.cancelChanges();
+        }
+    }
+</script>

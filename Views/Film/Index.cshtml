@@ -1,51 +1,59 @@
-﻿@model IEnumerable<SimpleTelerikApp.Models.Films>
-
+﻿
+@model IEnumerable<SimpleTelerikApp.Models.Films>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Home Page";
 }
 
-<h2>Index</h2>
+<div class="placeholders">
+    <div class="row d-flex justify-content-start">
+        <div class="col-md-2 mb-3 placeholder">
+            <h3>Spis filmów:</h3>
+        </div>
+    </div>
+</div>
+<div class="row" style="margin-top:20px;">
+    <div class="col-12">
+        @(Html.Kendo().Grid(Model)
+            .Name("grid")
+            .Columns(columns =>
+            {
+                columns.Bound(p => p.ID).Filterable(false);
+                columns.Bound(p => p.Title);
+                columns.Bound(p => p.Description);
+                columns.Bound(p => p.Director);
+                columns.Bound(p => p.ReleaseDate).Format("{0:dd/MM/yyyy}");
+                columns.Command(command =>
+                {
+                    command.Edit().UpdateText("Zapisz").CancelText("Anuluj").Text("Edytuj");
+                    command.Destroy().Text("Usuń");
+                });
+            })
+            .ToolBar(toolBar => toolBar.Create().Text("Dodaj nowy film"))
+            .Pageable()
+            .Editable(editable => editable.Mode(GridEditMode.InLine))
+            .Sortable()
+            .Scrollable()
+            .Filterable()
+            .HtmlAttributes(new { style = "height:500px;" })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .PageSize(10)
+                .ServerOperation(true)
+                .Batch(true)
+                .Model(model =>
+                {
+                    model.Id(film => film.ID);
+                    model.Field(film => film.ID).Editable(false);
+                })
+                .Create(create => create.Action("Films_Create", "Film"))
+                .Read(read => read.Action("Films_Read", "Film"))
+                .Update(update => update.Action("Films_Update", "Film"))
+                .Destroy(destroy => destroy.Action("Films_Destroy", "Film"))
+            )
+        )
+    </div>
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Director)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ReleaseDate)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Director)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReleaseDate)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
-
-</table>
+<script>
+    kendo.culture("en-GB");
+</script>

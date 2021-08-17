@@ -4,33 +4,26 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Aplikacja</title>
-	<link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.bootstrap-v4.min.css" rel="stylesheet" type="text/css" />
-	<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" type="text/css" />
-	<link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
-	<script src="https://kendo.cdn.telerik.com/2021.2.616/js/jquery.min.js"></script>
-	<script src="https://kendo.cdn.telerik.com/2021.2.616/js/jszip.min.js"></script>
-	<script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
-	<script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.aspnetmvc.min.js"></script>
-	<script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
-	<script src="@Url.Content("~/Scripts/kendo.modernizr.custom.js")"></script>
+    <link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.bootstrap-v4.min.css" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/jszip.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.aspnetmvc.min.js"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo.modernizr.custom.js")"></script>
+    <script src="@Url.Content("~/Scripts/cultures/kendo.culture.en-GB.min.js")"></script>
 </head>
 <body class="k-content">
-    
-    <div id="responsive-panel" class="navbar navbar-dark bg-light">
-        @(Html.Kendo().Menu()
-            .Name("Menu")
-            .HtmlAttributes(new { style="width:100%" })
-            .Items(items =>
-            {
-                items.Add()
-                    .Action("Index", "Home")
-                    .Text("Aplikacja");
-                items.Add()
-                    .Action("Create", "Film")
-                    .Text("Dodaj film");
-            })
-        )
-    </div>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid d-flex justify-content-between p-0">
+            <h1 class="navbar-brand d-flex align-items-center">Aplikacja</h1>
+            <button id="configure" class="k-rpanel-toggle k-button k-primary btn-toggle">
+                <span class="k-icon k-i-menu"></span>
+            </button>
+        </div>
+    </nav>
 
     <main>
         <div class="container-fluid">
