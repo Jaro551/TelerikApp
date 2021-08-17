@@ -125,7 +125,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\FilmController.cs" />
-    <Compile Include="Controllers\GridController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Data\FilmsContext.cs" />
     <Compile Include="Data\FilmsInitializer.cs" />
@@ -156,7 +155,6 @@
       <DependentUpon>FilmsData.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Films\Films.cs" />
-    <Compile Include="Models\OrderViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
